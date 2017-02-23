@@ -6,7 +6,7 @@ source("Libraries.R")
 #Loading data
 train<-read.csv("churnTrain.csv",header = T)
 
-View(head(train))
+#View(head(train))
 
 summary(train$Customer_Left)
 #Clearly we see data is biased
@@ -28,14 +28,15 @@ train$Customer_Left<-as.factor(train$Customer_Left)
 #here false ->1
 #     true ->0
 
-cpy<-train
-train<-cpy
+# cpy<-train
+# train<-cpy
 ntrain<-SMOTE(Customer_Left~.,train,perc.over=200,k = 3)
 ntrain$Customer_Left<-as.factor(ntrain$Customer_Left)
+summary(ntrain$Customer_Left)
 
 Smote_Train<-ntrain
 
-#rm(cpy,ntrain)
+rm(ntrain)
 
 #Preparing Test data
 test<-read.csv("churnTest.csv",header = T)
