@@ -15,10 +15,6 @@ j48<-J48(Customer_Left~.,data=train,control=Weka_control(),options=NULL)
 
 summary(j48)
 
-j48<-J48(Customer_Left~.,data=train,control=Weka_control(),options=NULL)
-plot(j48)
-
-
 # eval_j48 <- evaluate_Weka_classifier(j48, numFolds = 100,
 #                                      complexity = FALSE, 
 #                                      seed = 1, class = TRUE)
