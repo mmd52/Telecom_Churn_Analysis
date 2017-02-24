@@ -15,6 +15,10 @@ j48<-J48(Customer_Left~.,data=train,control=Weka_control(),options=NULL)
 
 summary(j48)
 
+j48<-J48(Customer_Left~.,data=train,control=Weka_control(),options=NULL)
+plot(j48)
+
+
 # eval_j48 <- evaluate_Weka_classifier(j48, numFolds = 100,
 #                                      complexity = FALSE, 
 #                                      seed = 1, class = TRUE)
@@ -57,19 +61,10 @@ plot(auc,print.auc=T)
 #Considering that 
 
 #=================================================================
-fit<-rpart(Customer_Left~.,method = "class",data = train)
-#plot tree
-plot(fit,uniform = T,main="Classification")
-text(fit,use.n=T,all = T,cex=.6,pretty = T)
+#Plotting Tree
+form <- as.formula(Customer_Left ~ .)
+tree.2 <- rpart(form,train)			# A more reasonable tree
+prp(tree.2)                                     # A fast plot													
+fancyRpartPlot(tree.2)				# A fancy plot from rattle
 
-preds<-predict(fit,test[,-21])
-npreds<-preds
-for(i in preds){
-  npreds[i]<-ifelse(preds[i,1]>preds[i,2],0,1)
-}
 
-caret::confusionMatrix(test[,21], npreds, mode = "prec_recall")
-
-auc<-roc(test[,21],as.numeric(npreds))
-print(auc)
-plot(auc,print.auc=T)
